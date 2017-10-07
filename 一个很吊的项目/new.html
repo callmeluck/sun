@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>new</title>
+	<style type="text/css">
+		*{margin:0;padding: 0;}	
+		html,body{height: 100%;}
+		.panel{
+			weight:100%;
+			height:600px;
+			
+		}
+		#panel_1{background: red;}
+		#panel_2{background: black;}
+		#panel_3{background: green;}
+
+
+	</style>
+</head>
+<body>
+	<nav>
+		<input type="radio" name="radio-set" id="nav_1">
+		<input type="radio" name="radio-set" id="nav_2">
+		<input type="radio" name="radio-set" id="nav_3">
+	</nav>
+	<div class="scroll">
+		<section class="panel" id="panel_1">1</section>
+		<section class="panel" id="panel_2">2</section>
+		<section class="panel" id="panel_3">3</section>
+	</div>
+</body>
+<script type="text/javascript">
+	var inputC=document.getElementsByTagName("input");
+        var wheel= function (event) {
+            var delta=0;
+            if(!event)//for ie
+                event=window.event;
+            if(event.wheelDelta){//ie,opera
+                delta=event.wheelDelta/120;
+            }else if(event.detail){
+                delta=-event.detail/3;
+            }
+            if(delta){
+                handle(delta,inputC);
+            }
+            if(event.preventDefault)
+                event.preventDefault();
+            event.returnValue=false;
+        };
+        if(window.addEventListener){
+            window.addEventListener('DOMMouseScroll',wheel,false);
+        }
+        window.onmousewheel=wheel;
+    };
+    function handle(delta,arr) {
+        var num;
+        for(var i=0;i<arr.length;i++){//得到当前checked元素的下标
+            if(arr[i].checked){
+                num=i;
+            }
+        }
+        if(delta>0 && num>0){//向上滚动
+            num--;
+            arr[num].checked=true;
+        }else if(delta<0 && num<4){//向下滚动
+            num++;
+            arr[num].checked=true;
+        }
+    }
+</script>
+</html>
